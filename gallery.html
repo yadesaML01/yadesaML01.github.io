@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Her Photos 📸</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(45deg, #3E2723, #6A4F40);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            color: white;
+            text-align: center;
+            overflow-x: hidden;
+            animation: gradientAnimation 10s ease infinite;
+        }
+
+        @keyframes gradientAnimation {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-top: 20px;
+            text-shadow: 2px 2px 10px rgba(255, 255, 255, 0.5);
+        }
+
+        /* Flexbox Photo Holder */
+        .photo-gallery {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: center;
+            max-width: 90%;
+            margin-top: 30px;
+            padding: 20px;
+        }
+
+        .category {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: center;
+            margin-bottom: 30px;
+        }
+
+        .photo-box {
+            width: 150px;
+            height: 150px;
+            position: relative;
+            overflow: hidden;
+            background-size: cover;
+            background-position: center;
+            border-radius: 15px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+        }
+
+        .photo-box:hover {
+            transform: scale(1.2); /* Enlarge the hovered box */
+            z-index: 2; /* Bring it to the front */
+        }
+
+        .category:hover .photo-box:not(:hover) {
+            transform: scale(0.9); /* Shrink the other boxes */
+        }
+
+        /* Caption Overlay */
+        .photo-box::after {
+            content: attr(data-caption);
+            position: absolute;
+            bottom: -100%;
+            left: 0;
+            width: 100%;
+            padding: 10px;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            font-size: 1rem;
+            text-align: center;
+            transition: bottom 0.3s ease;
+        }
+
+        .photo-box:hover::after {
+            bottom: 0;
+        }
+
+        /* Back to Homepage Button */
+        .btn-back {
+            margin-top: 40px;
+            padding: 12px 30px;
+            font-size: 1.2rem;
+            background: linear-gradient(145deg, #4E342E, #795548);
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            color: white;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        }
+
+        .btn-back:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.8);
+            background: linear-gradient(145deg, #795548, #4E342E);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .photo-box {
+                width: 120px;
+                height: 120px;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .photo-box {
+                width: 100px;
+                height: 100px;
+            }
+
+            h1 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <h1>My Beautiful Girl photos 💖</h1>
+
+    <!-- Flexbox Photo Holder -->
+    <div class="photo-gallery">
+        <!-- Category 1 -->
+        <div class="category">
+            <div class="photo-box" style="background-image: url('Image/kop5.jpg.jpg');" data-caption="የነ shikirkir💃💃ነገር "></div>
+            <div class="photo-box" style="background-image: url('Image/kop6.jpg.jpg');" data-caption="የነ model😊😊"></div>
+            <div class="photo-box" style="background-image: url('Image/kop7.jpg.jpg');" data-caption="የኔ ምርጥ ነገር"></div>
+            <div class="photo-box" style="background-image: url('Image/kop12.png.png');" data-caption="የኔ 🥰🥰"></div>
+            <div class="photo-box" style="background-image: url('Image/kop10.jpg.png');" data-caption="የኔ 💕💕"></div>
+            <div class="photo-box" style="background-image: url('Image/kop3.jpg.jpg');" data-caption="የኔ ❤️❤️"></div>
+            <h3>የኔ KOP ተመልክቺ እስቲ ምን ያህል ቆንጆ😍😍 እንድሆንሽ "yene wub ነገር😊😊"</h3>
+        </div>
+
+        <!-- Category 2 -->
+        <div class="category">
+            <div class="photo-box" style="background-image: url('Image/kop9.jpg.jpg');" data-caption="የኔ አበባ🌹🌹"></div>
+            <div class="photo-box" style="background-image: url('Image/kop11.png.jpg');" data-caption="🌹🌹🌹🌹"></div>
+            <div class="photo-box" style="background-image: url('Image/kop13.png.jpg');" data-caption="🌹🌹🌹🌹"></div>
+            <div class="photo-box" style="background-image: url('Image/kop14.png.jpg');" data-caption="🌸🌺🌸🌺"></div>
+            <div class="photo-box" style="background-image: url('Image/kop15.png.jpg');" data-caption="🌸🌺🌸🌺"></div>
+            <div class="photo-box" style="background-image: url('Image/kop16.png.jpg');" data-caption="🌸🌺🌸🌺"></div>
+            <h3>ዬኔ ትንሽዬ ድስ የምትል ነገር😘😘 </h3>
+        </div>
+
+        <!-- Category 3 -->
+        <div class="category">
+            <div class="photo-box" style="background-image: url('Image/kop18\ \(3\).jpg');" data-caption="የኔ ትንሽዬ🤎🤎🤎"></div>
+            <div class="photo-box" style="background-image: url('Image/kop1.jpg.png');" data-caption="🤎🤎🤎"></div>
+            <div class="photo-box" style="background-image: url('Image/kop.jpg');" data-caption="🤎🤎🤎"></div>
+            <div class="photo-box" style="background-image: url('Image/kop2.jpg_upscayl_4x_realesrgan-x4plus-anime.png');" data-caption="🍫 🍫 🍫 "></div>
+            <div class="photo-box" style="background-image: url('Image/kop3.jpg.jpg');" data-caption="🍫 🍫 🍫 "></div>
+            <div class="photo-box" style="background-image: url('Image/kop17.png.jpg');" data-caption="🍫 🍫 🍫 "></div>
+            <h3>በህይወቴ አንቺ ስላለሽ በጣም ድስተኛ ነኝ በጣም ነው የማፈቅርሽ የኔ ትንሽዬ ነገር </h3>
+            <h4>ታዉቂያለሽ አሁነ አጥጠገብሽ ብሆን ብዙ 🍫 🍫 🍫 🍫 🍫 🍫 🍫 🍫አመጣልሽ ነበር😊😊😊😊</h4>
+        </div>
+    </div>
+
+    <!-- Back to Homepage Button -->
+    <button class="btn-back" onclick="goHome()">Back to Homepage</button>
+
+    <script>
+        function goHome() {
+            window.location.href = 'index.html';
+        }
+    </script>
+
+</body>
+</html>

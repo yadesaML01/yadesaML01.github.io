@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For My Love ❤️</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+            background: #000; /* Dark background initially */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+            color: white;
+            transition: background 0.5s ease-in-out;
+        }
+
+        /* Message Box */
+        .message-box {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 80%;
+            max-width: 600px;
+            height: 200px;
+            background: #3E2723; /* Chocolate background */
+            border-radius: 20px;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+            margin-bottom: 20px; /* Space for the toggle button */
+            padding: 20px;
+            text-align: center;
+            animation: float 3s ease-in-out infinite, glowBox 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        @keyframes glowBox {
+            0% {
+                box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+            }
+            100% {
+                box-shadow: 0 0 40px rgba(255, 255, 255, 0.6);
+            }
+        }
+
+        .message-box h2 {
+            font-size: 1.5rem;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.8), 0 0 20px rgba(255, 255, 255, 0.8);
+            opacity: 0; /* Initially hidden */
+            animation: fadeInText 2s forwards, glowText 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes fadeInText {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes glowText {
+            0% {
+                text-shadow: 0 0 10px rgba(255, 255, 255, 0.8), 0 0 20px rgba(255, 255, 255, 0.8);
+            }
+            100% {
+                text-shadow: 0 0 20px rgba(255, 255, 255, 1), 0 0 40px rgba(255, 255, 255, 1);
+            }
+        }
+
+        /* Realistic 3D Toggle Switch */
+        .switch {
+            position: absolute; /* Change to absolute positioning */
+            display: inline-block;
+            width: 120px; /* Wider switch */
+            height: 60px; /* Taller switch */
+            bottom: 20%; /* Move it down from the text box */
+            left: 50%; /* Center horizontally */
+            transform: translateX(-50%) rotate(180deg); /* Center and rotate 180 degrees */
+            z-index: 10; /* Ensure it's above other elements */
+        }
+
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #00ff00; /* Green background */
+            border-radius: 60px; /* Rounded edges */
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3), 0 4px 8px rgba(0, 0, 0, 0.3);
+            transition: 0.4s;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: '';
+            height: 50px;
+            width: 50px;
+            left: 5px;
+            bottom: 5px;
+            background-color: white;
+            border-radius: 50%;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+            transition: 0.4s;
+        }
+
+        input:checked + .slider {
+            background-color: #00ff00; /* Keep green when on */
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(60px); /* Move the slider to the right */
+            background-color: white; /* Keep the slider white */
+        }
+
+        /* Add "ON" text when the switch is on */
+        input:checked + .slider::after {
+            content: 'ON';
+            position: absolute;
+            top: 50%;
+            left: 15px; /* Adjust position */
+            transform: translateY(-50%);
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: white;
+            text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+            opacity: 1; /* Ensure it's visible */
+        }
+
+        /* Rope for Hanging the Bulb */
+        .rope {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            width: 4px; /* Thinner rope */
+            height: 150px; /* Adjust height to match bulb position */
+            background: #ffffff; /* White rope */
+            transform: translateX(-50%);
+            z-index: 1; /* Make sure it's below the bulb */
+            opacity: 0; /* Initially hidden */
+            transition: opacity 0.5s ease-in-out;
+        }
+
+        /* Bulb Container */
+        .bulb-container {
+            position: absolute;
+            top: 150px; /* Position at the end of the rope */
+            left: 50%;
+            transform: translateX(-50%);
+            cursor: pointer;
+            z-index: 2;
+            opacity: 0; /* Initially hidden */
+            transition: opacity 0.5s ease-in-out;
+        }
+
+        /* Realistic Bulb Shape */
+        .bulb {
+            width: 60px;
+            height: 90px;
+            background: #ffffff; /* White bulb */
+            border-radius: 60% 60% 40% 40%;
+            position: relative;
+            box-shadow: 0 0 30px rgba(255, 255, 255, 0.6);
+            transform: rotate(180deg); /* Initially inverted */
+            transform-origin: top center; /* Rotate from the top */
+        }
+
+        /* Bulb Light */
+        .bulb::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.6) 0%, rgba(255, 255, 255, 0) 60%);
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+            z-index: -1;
+            animation: blink 1.5s 3; /* Blink 3 times */
+        }
+
+        @keyframes blink {
+            0%, 50%, 100% {
+                opacity: 1;
+            }
+            25%, 75% {
+                opacity: 0;
+            }
+        }
+
+        /* Bulb Base */
+        .bulb:before {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 30px;
+            height: 15px;
+            background: #D4AF37;
+            border-radius: 50%;
+        }
+
+        /* Content */
+        .container {
+            text-align: center;
+            z-index: 1;
+            opacity: 0; /* Initially hidden */
+            transition: opacity 0.5s ease-in-out;
+        }
+
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 10px; /* Adjusted margin */
+            text-shadow: 2px 2px 10px rgba(255, 255, 255, 0.5), 0 0 25px rgba(139, 69, 19, 0.7);
+            animation: fadeIn 2s forwards;
+        }
+
+        h3 {
+            font-size: 1.5rem;
+            margin-bottom: 20px; /* Adjusted margin */
+            color: rgba(255, 255, 255, 0.8);
+            text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
+        }
+
+        .square-container {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            margin-top: 50px;
+            width: 80%;
+            gap: 20px; /* Add space between photos */
+        }
+
+        .square-photo {
+            width: 150px;
+            height: 150px;
+            position: relative;
+            overflow: hidden;
+            background-size: cover;
+            background-position: center;
+            transition: transform 0.3s, box-shadow 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
+            border-radius: 15px; /* Reduce corner radius */
+            animation: moveFrontBack 3s ease-in-out infinite;
+        }
+
+        @keyframes moveFrontBack {
+            0%, 100% {
+                transform: scale(1); /* Normal size */
+            }
+            50% {
+                transform: scale(1.2); /* Zoom in */
+            }
+        }
+
+        .square-photo:nth-child(1) {
+            animation-delay: 0s; /* First image starts immediately */
+        }
+
+        .square-photo:nth-child(2) {
+            animation-delay: 1s; /* Second image starts after 1 second */
+        }
+
+        .square-photo:nth-child(3) {
+            animation-delay: 2s; /* Third image starts after 2 seconds */
+        }
+
+        /* Solid Lines Moving Around the Square */
+        .square-photo::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 2px solid #00ff00; /* Green solid line */
+            border-radius: 15px;
+            animation: moveLine 4s linear infinite;
+            z-index: 1;
+        }
+
+        @keyframes moveLine {
+            0% {
+                clip-path: polygon(0 0, 0 0, 0 0, 0 0);
+            }
+            25% {
+                clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+            }
+            50% {
+                clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+            }
+            75% {
+                clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+            }
+            100% {
+                clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+            }
+        }
+
+        .square-text {
+            position: absolute;
+            bottom: -30px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: white;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.6);
+        }
+
+        /* Button */
+        .btn-3d {
+            padding: 12px 30px;
+            font-size: 1.5rem;
+            margin-top: 40px;
+            background: linear-gradient(145deg, #4E342E, #795548);
+            border: none;
+            border-radius: 10px;
+            color: white;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .btn-3d:hover {
+            transform: scale(1.1);
+            box-shadow: 0 5px 15px rgba(0, 255, 0, 0.6);
+        }
+
+        /* Mobile responsiveness */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+
+            h3 {
+                font-size: 1.2rem;
+            }
+
+            .square-photo {
+                width: 120px;
+                height: 120px;
+            }
+
+            .square-text {
+                font-size: 1rem;
+            }
+
+            .btn-3d {
+                font-size: 1.2rem;
+                padding: 10px 25px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.5rem;
+            }
+
+            h3 {
+                font-size: 1rem;
+            }
+
+            .square-photo {
+                width: 100px;
+                height: 100px;
+            }
+
+            .square-text {
+                font-size: 0.9rem;
+            }
+
+            .btn-3d {
+                font-size: 1rem;
+                padding: 8px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Message Box -->
+    <div class="message-box" id="messageBox">
+        <h2>
+            የኔ kop ደናነሽሊኝ? ሰሞኑን በጣም ጠፋዉብሽ አ ታውቂያለሽ በጣም እየናፈቅሽኝ ነው፣ ኣላውቅም ብቻ ዝም ብዬ ሳስብሽ ጊዜ ልምን ዝም ብዬ photowan ከማይ የሆነ ነግር አልስራላትም አልኩና 😊
+             በሙያዬ ይችህን ቲንሽዬ ነገር ለ ትንሽዬዋ😍 እና ለ konjiyewa🥰🥰 ልጅ ስራዉላት <br>🍫 🍫 🍫 🍫 🍫 🍫 🍫 🍫 🍫 🍫 
+        </h2>
+    </div>
+
+    <!-- Realistic 3D Toggle Switch -->
+    <label class="switch" id="switchButton">
+        <input type="checkbox" id="toggleSwitch">
+        <span class="slider"></span>
+    </label>
+
+    <!-- Rope for Hanging the Bulb -->
+    <div class="rope" id="rope"></div>
+
+    <!-- Bulb Container -->
+    <div class="bulb-container" id="bulbContainer" onclick="toggleLight()">
+        <div class="bulb" id="bulb"></div>
+    </div>
+
+    <!-- Homepage Section -->
+    <div class="container" id="content">
+        <h1>እንኳን በደህና <br> መጣሽልኝ የነ ትንሽዬ ነገር <br> 😊🥰😊</h1>
+        <h3>ዛሬ ቀኑ ምንም ልዩ ቀን አይደለም ግን አብረን ልዩ እና የሆነ ነገር ምናከብር አይነት ነገር ... ለምሳሌ ልድትሽ ነው እንበልና እንክዋን ተወለድሽልኝ የኔ KONJIYE😍 ነገር</h3>
+        
+        <!-- Square Photo Holders -->
+        <div class="square-container">
+            <div class="square-photo" style="background-image: url('Image/kop182.jpg');">
+                <div class="square-text">Kop</div>
+            </div>
+            <div class="square-photo" style="background-image: url('Image/kop4.jpg.jpg');">
+                <div class="square-text">Kop</div>
+            </div>
+            <div class="square-photo" style="background-image: url('Image/kop3.jpg.jpg');">
+                <div class="square-text">Kop</div>
+            </div>
+        </div>
+
+        <!-- Button to Go to Gallery -->
+        <a href="gallery.html"><button class="btn-3d" onclick="showGallery()">🍫 🍫 🤎🤎🤎🍫 🍫 </button></a>
+    </div>
+
+    <script>
+        const toggleSwitch = document.getElementById('toggleSwitch');
+        const body = document.body;
+        const content = document.getElementById('content');
+        const messageBox = document.getElementById('messageBox');
+        const switchButton = document.getElementById('switchButton');
+        const bulbContainer = document.getElementById('bulbContainer');
+        const rope = document.getElementById('rope');
+
+        toggleSwitch.addEventListener('change', function () {
+            if (this.checked) {
+                // Turn on the light
+                body.style.background = '#3E2723'; // Original background
+                content.style.opacity = '1'; // Show content
+                bulbContainer.style.opacity = '1'; // Show bulb
+                rope.style.opacity = '1'; // Show rope
+                messageBox.style.display = 'none'; // Hide message box
+                switchButton.style.display = 'none'; // Hide switch button
+            } else {
+                // Turn off the light
+                body.style.background = '#000'; // Dark background
+                content.style.opacity = '0'; // Hide content
+                bulbContainer.style.opacity = '0'; // Hide bulb
+                rope.style.opacity = '0'; // Hide rope
+                messageBox.style.display = 'flex'; // Show message box
+                switchButton.style.display = 'block'; // Show switch button
+            }
+        });
+
+        // Bulb click functionality
+        bulbContainer.addEventListener('click', function () {
+            if (toggleSwitch.checked) {
+                toggleSwitch.checked = false;
+                body.style.background = '#000'; // Dark background
+                content.style.opacity = '0'; // Hide content
+                bulbContainer.style.opacity = '0'; // Hide bulb
+                rope.style.opacity = '0'; // Hide rope
+                messageBox.style.display = 'flex'; // Show message box
+                switchButton.style.display = 'block'; // Show switch button
+            }
+        });
+
+        function showGallery() {
+           // alert("Gallery functionality can be added here!");
+        }
+    </script>
+</body>
+</html>
